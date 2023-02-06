@@ -1,40 +1,65 @@
-// Sum of power of digits.
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Collections;
-public class Main
-{
-	public static void main(String[] args) {
-		Scanner sc= new Scanner(System.in);
-		ArrayList<Integer> a = new ArrayList<>();
-		int input1 = sc.nextInt();
-		
-		int []input2 = new int[input1]; 
-		for(int i=0;i<input1;i++){
-		     input2[i] = sc.nextInt();
-		}
-		int c=1,num=0;;
-		for(int i=0;i<input1-2;i++){
-		    if(input2[i]>=input2[i+1]){
-		        c+=1;
-		        continue;
-		    }
-		    else{
-		        if(c>1){
-		            a.add(c);
-		            c=1;
-		            num+=1;
-		        }
-		    }
-		}
-		// num = number of non-ascending sequences.
-		// a = arraylist consists of size of each decreasing subsequence.
-		if(a.size()==0){
-		    System.out.println(0+" "+0);
-		}
-		else{
-		    System.out.println(num+" "+Collections.max(a));
-		}
-		
-	}
+
+class Main{
+    public static void main(String args[]){
+        Scanner sc = new Scanner(System.in);
+        
+        String fn = sc.next();
+        
+        String ln = sc.next();
+        
+        int pin = sc.nextInt();
+        
+        int n = sc.nextInt();
+        
+        int fLength = fn.length();
+        
+        int lLength = ln.length();
+        String longName = "",smallName="";
+        
+        if(fLength>lLength){
+            longName=fn;
+            smallName=ln;
+        }
+        else{
+            longName=ln;
+            smallName=fn;
+        }
+        
+        String userId="";
+        userId = smallName.charAt(smallName.length()-1)+longName;
+        
+        // left to right.
+        String newPin = String.valueOf(pin);
+        for(int i=0;i<newPin.length();i++){
+            if(i==n-1){
+                userId+=newPin.charAt(i);
+            }
+        }
+        // right to left
+        for(int i=newPin.length()-1;i>=0;i--){
+            if(i==newPin.length()-n){
+                userId+=newPin.charAt(i);
+            }
+        }
+        
+        // toggle code.
+        String res="";
+        for(int i=0;i<userId.length();i++){
+            if(userId.charAt(i)>='a' && userId.charAt(i)<='z'){
+                int x = userId.charAt(i)-32;
+                res+=(char)x;
+            }
+            else if(userId.charAt(i)>='A' && userId.charAt(i)<='Z'){
+                int x = userId.charAt(i)+32;
+                res+=(char)x;
+            }
+            else{
+                res+=userId.charAt(i);
+            }
+        }
+        
+        System.out.println(res);
+        
+    }
 }
